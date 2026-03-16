@@ -58,14 +58,14 @@ public class ManagePetController {
     }
 
     @PostMapping("/showFormForUpdate")
-    public String showFormForUpdate(@RequestParam("petId") Long theId,Model theModel) {
+    public String showFormForUpdate(@RequestParam("petId") String theId,Model theModel) {
 
 
         PetEntityDTO petEntityDTO = petServiceImpl.findById(theId);
 
         theModel.addAttribute("petEntityDTO", petEntityDTO);
 
-        return "pets/pet-form";
+        return "pets/pet-update";
     }
 
     @PostMapping("/save")
@@ -107,7 +107,7 @@ public class ManagePetController {
 
 
     @PostMapping("/delete")
-    public String delete(@RequestParam("petId") Long theId) {
+    public String delete(@RequestParam("petId") String theId) {
 
         logger.info("Request POST /delete");
         petServiceImpl.deleteById(theId);
@@ -119,7 +119,7 @@ public class ManagePetController {
     @PostMapping("/api/delete")
     @Operation(summary = "Deletes one Pet")
     @ResponseBody
-    public Long deleteApi(@RequestBody Long theId) {
+    public String deleteApi(@RequestBody String theId) {
          petServiceImpl.deleteById(theId);
          return theId;
     }
@@ -129,9 +129,45 @@ public class ManagePetController {
     @GetMapping("/api/onePet")
     @Operation(summary = "Gets one Pet")
     @ResponseBody
-    public PetEntityDTO getOne(@RequestParam("petId") Long theId) {
+    public PetEntityDTO getOne(@RequestParam("petId") String theId) {
        return petServiceImpl.findById(theId);
     }
 
+
+    @PostMapping("/update")
+    public String updatePet(@ModelAttribute("petEntityDTO") PetEntityDTO thePet,  BindingResult result,
+                            Model model) {
+
+        logger.info("Request POST /update");
+
+        try {
+            petServiceImpl.update(thePet);
+        } catch (PetNotValidException ex) {
+            result.reject("error.pet", ex.getMessage());
+            model.addAttribute("petEntityDTO", thePet);
+            return "pets/pet-update";
+        }
+
+        return "redirect:/pets/list";
+    }
+
+    @Tag(name = "Pets API", description = "Endpoint JSON Swagger")
+    @PostMapping("/api/update")
+    @Operation(summary = "Updates one Pet")
+    @ResponseBody
+    public ResponseEntity<?> updateApi(@ModelAttribute("petEntityDTO") PetEntityDTO thePet) {
+
+
+        try {
+            petServiceImpl.update(thePet);
+            return ResponseEntity.ok(thePet);
+        } catch (PetNotValidException ex) {
+
+            return ResponseEntity
+                    .badRequest()
+                    .body(ex.getMessage());
+        }
+
+    }
 
 }

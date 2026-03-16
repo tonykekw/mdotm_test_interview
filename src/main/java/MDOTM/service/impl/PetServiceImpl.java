@@ -51,7 +51,7 @@ public class PetServiceImpl implements PetService {
      * @param theId unique for each Pet
      * @return PetEntityDTO for the View
      */
-    public PetEntityDTO findById(Long theId) {
+    public PetEntityDTO findById(String theId) {
 
         logger.info("Getting Pet with ID: {}", theId);
 
@@ -107,7 +107,7 @@ public class PetServiceImpl implements PetService {
      *
      * @param theId unique for a Pet
      */
-    public void deleteById(Long theId) {
+    public void deleteById(String theId) {
 
         logger.info("Deleting Pet with ID: {}", theId);
 
@@ -149,12 +149,39 @@ public class PetServiceImpl implements PetService {
 
         Pet pet= new Pet();
         pet.setAge(petEntityDTO.getAge());
-        pet.setId(petEntityDTO.getId());
         pet.setSpecies(petEntityDTO.getSpecies());
         pet.setOwnerName(petEntityDTO.getOwnerName());
         pet.setName(petEntityDTO.getName());
 
         return pet;
+    }
+
+
+    /**
+     * Updates a Pet Entity
+     *
+     * @param petEntityDTO before converting it to Pet
+     */
+    public void update(PetEntityDTO petEntityDTO) {
+
+        Optional<Pet> p = petRepository.findById(petEntityDTO.getId());
+        if(p.isPresent()) {
+
+            checkPet(petEntityDTO);
+
+            Pet pet = p.get();
+            pet.setName(petEntityDTO.getName());
+            pet.setOwnerName(petEntityDTO.getOwnerName());
+            pet.setSpecies(petEntityDTO.getSpecies());
+            pet.setAge(petEntityDTO.getAge());
+            petRepository.save(pet);
+
+        }else{
+
+            throw new RuntimeException("Pet not found during update");
+
+        }
+
     }
 
 

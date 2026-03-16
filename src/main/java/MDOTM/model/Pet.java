@@ -1,43 +1,53 @@
 package MDOTM.model;
 
 
-import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NonNull;
-import lombok.Setter;
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
+import org.springframework.data.mongodb.core.mapping.Field;
 
 import java.util.Objects;
 
 @Getter
-@Setter
 @AllArgsConstructor
-@Entity
-@Table(name="pet")
+@Document(collection = "pets")
 public class Pet {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name="id")
-    private Long id;
+    private String id;
 
     @NonNull
-    @Column(name="name")
     private String name;
 
     @NonNull
-    @Column(name="species")
     private String species;
 
 
-    @Column(name="age")
     private  Integer age;
 
-    @Column(name="owner_name")
+    @Field("pet_name")
     private String ownerName;
 
 
     public Pet(){};
+
+    public void setAge(Integer age) {
+        this.age = age;
+    }
+
+    public void setName(@NonNull String name) {
+        this.name = name;
+    }
+
+    public void setSpecies(@NonNull String species) {
+        this.species = species;
+    }
+
+    public void setOwnerName(String ownerName) {
+        this.ownerName = ownerName;
+    }
 
     @Override
     public String toString() {

@@ -30,7 +30,6 @@ class PetServiceImplTest {
     void findAllTest() {
 
         Pet pet = new Pet();
-        pet.setId(1L);
         pet.setName("Fido");
         pet.setAge(3);
 
@@ -49,25 +48,24 @@ class PetServiceImplTest {
     void findByIdTest() {
 
         Pet pet = new Pet();
-        pet.setId(1L);
         pet.setName("Fido");
 
-        when(petRepository.findById(1L)).thenReturn(Optional.of(pet));
+        when(petRepository.findById("1111111111111")).thenReturn(Optional.of(pet));
 
-        PetEntityDTO result = petService.findById(1L);
+        PetEntityDTO result = petService.findById("1111111111111");
 
         assertEquals("Fido", result.getName());
 
-        verify(petRepository).findById(1L);
+        verify(petRepository).findById("1111111111111");
     }
 
     @Test
     void findByIdException() {
 
-        when(petRepository.findById(1L)).thenReturn(Optional.empty());
+        when(petRepository.findById("1111111111111")).thenReturn(Optional.empty());
 
         assertThrows(RuntimeException.class,
-                () -> petService.findById(1L));
+                () -> petService.findById("1111111111111"));
     }
 
     @Test
@@ -85,8 +83,8 @@ class PetServiceImplTest {
     @Test
     void deleteByIdTest() {
 
-        petService.deleteById(1L);
-        verify(petRepository).deleteById(1L);
+        petService.deleteById("1111111111111");
+        verify(petRepository).deleteById("1111111111111");
 
     }
 

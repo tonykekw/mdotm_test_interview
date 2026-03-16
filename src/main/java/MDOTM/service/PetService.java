@@ -9,10 +9,10 @@ public interface PetService {
 
 	List<PetEntityDTO> findAll();
 
-	PetEntityDTO findById(Long theId);
+	PetEntityDTO findById(String theId);
 	
 	void save(PetEntityDTO theEmployee);
 	
-	void deleteById(Long theId);
+	void deleteById(String theId);
 	
 }

@@ -34,7 +34,7 @@ class ManagePetControllerTest {
     @Test
     void listPetsTest() {
 
-        List<PetEntityDTO> mockPets = Collections.singletonList(new PetEntityDTO(1L, "Leone","Miuriel",5, "Dog"));
+        List<PetEntityDTO> mockPets = Collections.singletonList(new PetEntityDTO("1111111111111", "Leone","Miuriel",5, "Dog"));
         Mockito.when(petService.findAll()).thenReturn(mockPets);
         Model model = new ExtendedModelMap();
         String view = controller.listPets(model);
@@ -58,9 +58,9 @@ class ManagePetControllerTest {
 
     @Test
     void deleteTest() {
-        String redirect = controller.delete(1L);
+        String redirect = controller.delete("1111111111111");
         assertEquals("redirect:/pets/list", redirect);
-        verify(petService).deleteById(1L);
+        verify(petService).deleteById("1111111111111");
     }
 
 }

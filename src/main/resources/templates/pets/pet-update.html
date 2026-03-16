@@ -20,7 +20,7 @@
 
         <p class="h4 mb-4">Save Pet</p>
 
-        <form action="#" th:action="@{/pets/save}"
+        <form action="#" th:action="@{/pets/update}"
                          th:object="${petEntityDTO}" method="POST">
 
             <input type="hidden" th:field="*{id}" />
@@ -46,6 +46,10 @@
             <div th:if="${#fields.hasGlobalErrors()}">
                 <p th:each="err : ${#fields.globalErrors()}" th:text="${err}"></p>
             </div>
+
+
+
+
 
             <button type="submit" class="btn btn-info col-2">Save</button>
 
