@@ -13,7 +13,7 @@ Spring Security for authentication.
 
 Swagger for API documentation.
 
-PostgreSQL as DB.
+PostgreSQL/MongoDB as DB.
 
 Basic tests made with Mockito.
 
@@ -25,3 +25,6 @@ Build: ./mvnw clean install
 Run: ./mvnw spring-boot:run
 Access UI: http://localhost:8080
 Swagger: http://localhost:8080/swagger-ui.html
+
+
+
