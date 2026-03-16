@@ -19,7 +19,7 @@ Basic tests made with Mockito.
 
 Tech: Java 21, Spring Boot, Maven/Gradle, Thymeleaf, Spring Security, Swagger, PostgreSQL.
 
-Clone: git clone https://github.com/your-username/pet-directory.git
+Clone: git clone https://github.com/tonykekw/mdotm_test_interview.git
 
 Build: ./mvnw clean install
 Run: ./mvnw spring-boot:run
