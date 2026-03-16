@@ -1,7 +1,6 @@
 package MDOTM.service;
 
 import MDOTM.dto.PetEntityDTO;
-import MDOTM.model.Pet;
 
 
 import java.util.List;
