@@ -30,7 +30,7 @@
 
             <p th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></p>
 
-            <input type="text" th:field="*{age}"
+            <input type="number" th:field="*{age}"
                    class="form-control mb-4 w-25" placeholder="Age">
 
             <p th:if="${#fields.hasErrors('age')}" th:errors="*{age}"></p>
